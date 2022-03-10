@@ -13,5 +13,6 @@ spec:
     server: https://kubernetes.default.svc
     namespace: domain1-ns
   syncPolicy:
-    prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
-    selfHeal: true # Specifies if partial app sync should be executed when resources are changed only in target Kubernetes cluster no git change detected ( false by default ).
+    automated:
+      prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
+      selfHeal: true # Specifies if partial app sync should be executed when resources are changed only in target Kubernetes cluster no git change detected ( false by default ).
