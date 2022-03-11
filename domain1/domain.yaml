@@ -1,10 +1,64 @@
 apiVersion: weblogic.oracle/v8
 kind: Domain
 metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: '{"apiVersion":"weblogic.oracle/v8","kind":"Domain","metadata":{"annotations":{},"labels":{"app.kubernetes.io/instance":"updatedomain","weblogic.domainUID":"domain1-uid"},"name":"domain1","namespace":"domain1-ns"},"spec":{"adminServer":{"serverPod":{"env":[{"name":"USER_MEM_ARGS","value":"-Xms256m
+      -Xmx512m -XX:+UseG1GC -Djava.security.egd=file:/dev/./urandom"},{"name":"JAVA_OPTIONS","value":"-Dweblogic.store.file.LockEnabled=false
+      -Dweblogic.rjvm.allowUnknownHost=true -Dweblogic.security.remoteAnonymousRMIT3Enabled=false
+      -Dweblogic.security.remoteAnonymousRMIIIOPEnabled=false"}]},"serverStartState":"RUNNING"},"clusters":[{"clusterName":"domain1-cluster","replicas":2,"serverPod":{"affinity":{"podAntiAffinity":{"preferredDuringSchedulingIgnoredDuringExecution":[{"podAffinityTerm":{"labelSelector":{"matchExpressions":[{"key":"weblogic.clusterName","operator":"In","values":["domain1-cluster"]}]},"topologyKey":"kubernetes.io/hostname"},"weight":100}]}},"env":[{"name":"USER_MEM_ARGS","value":"-XX:+UseContainerSupport
+      -XX:+UseG1GC -Djava.security.egd=file:/dev/./urandom"},{"name":"JAVA_OPTIONS","value":"-Dweblogic.store.file.LockEnabled=false
+      -Dweblogic.rjvm.allowUnknownHost=true -Dweblogic.security.remoteAnonymousRMIT3Enabled=false
+      -Dweblogic.security.remoteAnonymousRMIIIOPEnabled=false"}]},"serverStartState":"RUNNING"}],"configuration":{"introspectorJobActiveDeadlineSeconds":300,"model":{"configMap":"domain1-configmap","domainType":"WLS","runtimeEncryptionSecret":"domain1-runtime-encryption-secret"}},"dataHome":"/u01/shared/weblogic-domains/domain1/data/store","domainHome":"/u01/data/domains/domain1-uid","domainHomeSourceType":"FromModel","image":"iad.ocir.io/idivyfxzwa6h/wlschk/wls-base-image/domain1/122140:12.2.1.4.220118-220207-22-03-11_15-45-56","imagePullPolicy":"IfNotPresent","imagePullSecrets":[{"name":"ocirsecrets"}],"includeServerOutInPodLog":true,"logHome":"/u01/shared/weblogic-domains/domain1/logs","logHomeEnabled":true,"restartVersion":"1","serverPod":{"env":[{"name":"RESOURCE_PREFIX","value":"domain1"},{"name":"JAVA_OPTIONS","value":"-Dweblogic.StdoutDebugEnabled=false
+      -Doracle.jdbc.fanEnabled=false "},{"name":"OKE_DOMAIN_NAME","value":"domain1"}],"nodeSelector":{"name":"wlschk-wls-np","usage":"weblogic"},"volumeMounts":[{"mountPath":"/u01/shared","name":"weblogic-domain-storage-volume"}],"volumes":[{"name":"weblogic-domain-storage-volume","persistentVolumeClaim":{"claimName":"domain1-oke-pvc"}}]},"serverStartPolicy":"IF_NEEDED","webLogicCredentialsSecret":{"name":"domain1-weblogic-credentials"}}}
+
+      '
+  creationTimestamp: '2022-03-11T15:47:51Z'
+  generation: 1
   labels:
+    app.kubernetes.io/instance: updatedomain
     weblogic.domainUID: domain1-uid
+  managedFields:
+  - apiVersion: weblogic.oracle/v8
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:labels:
+          .: {}
+          f:weblogic.domainUID: {}
+    manager: OpenAPI-Generator
+    operation: Update
+    time: '2022-03-11T15:47:51Z'
+  - apiVersion: weblogic.oracle/v8
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:status:
+        .: {}
+        f:clusters: {}
+        f:conditions: {}
+        f:introspectJobFailureCount: {}
+        f:replicas: {}
+        f:servers: {}
+        f:startTime: {}
+    manager: Kubernetes Java Client
+    operation: Update
+    time: '2022-03-11T15:52:45Z'
+  - apiVersion: weblogic.oracle/v8
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          .: {}
+          f:kubectl.kubernetes.io/last-applied-configuration: {}
+        f:labels:
+          f:app.kubernetes.io/instance: {}
+    manager: argocd-application-controller
+    operation: Update
+    time: '2022-03-11T17:54:43Z'
   name: domain1
   namespace: domain1-ns
+  resourceVersion: '13254847'
+  selfLink: /apis/weblogic.oracle/v8/namespaces/domain1-ns/domains/domain1
+  uid: 628a5c68-6c35-4e65-a483-4e44674f3b40
 spec:
   adminServer:
     serverPod:
@@ -44,10 +98,12 @@ spec:
       configMap: domain1-configmap
       domainType: WLS
       runtimeEncryptionSecret: domain1-runtime-encryption-secret
+    secrets:
+    - domain1-password-secret
   dataHome: /u01/shared/weblogic-domains/domain1/data/store
   domainHome: /u01/data/domains/domain1-uid
   domainHomeSourceType: FromModel
-  image: iad.ocir.io/idivyfxzwa6h/wlschk/wls-base-image/domain1/122140:12.2.1.4.220118-220207-22-03-11_15-45-56
+  image: iad.ocir.io/idivyfxzwa6h/wlschk/wls-base-image/domain1/122140:12.2.1.4.220118-220207-22-03-11_17-53-31
   imagePullPolicy: IfNotPresent
   imagePullSecrets:
   - name: ocirsecrets
@@ -76,3 +132,73 @@ spec:
   serverStartPolicy: IF_NEEDED
   webLogicCredentialsSecret:
     name: domain1-weblogic-credentials
+status:
+  clusters:
+  - clusterName: domain1-cluster
+    maximumReplicas: 9
+    minimumReplicas: 0
+    readyReplicas: 2
+    replicas: 2
+    replicasGoal: 2
+  conditions:
+  - lastTransitionTime: '2022-03-11T15:55:08.876450Z'
+    reason: ServersReady
+    status: 'True'
+    type: Available
+  introspectJobFailureCount: 0
+  replicas: 2
+  servers:
+  - desiredState: RUNNING
+    health:
+      activationTime: '2022-03-11T15:52:04.840000Z'
+      overallHealth: ok
+      subsystems:
+      - subsystemName: ServerRuntime
+        symptoms: []
+    nodeName: 10.0.4.7
+    serverName: domain1-adminserver
+    state: RUNNING
+  - clusterName: domain1-cluster
+    desiredState: RUNNING
+    health:
+      activationTime: '2022-03-11T15:54:52.850000Z'
+      overallHealth: ok
+      subsystems:
+      - subsystemName: ServerRuntime
+        symptoms: []
+    nodeName: 10.0.4.7
+    serverName: domain1-managed-server1
+    state: RUNNING
+  - clusterName: domain1-cluster
+    desiredState: RUNNING
+    health:
+      activationTime: '2022-03-11T15:54:53.952000Z'
+      overallHealth: ok
+      subsystems:
+      - subsystemName: ServerRuntime
+        symptoms: []
+    nodeName: 10.0.4.7
+    serverName: domain1-managed-server2
+    state: RUNNING
+  - clusterName: domain1-cluster
+    desiredState: SHUTDOWN
+    serverName: domain1-managed-server3
+  - clusterName: domain1-cluster
+    desiredState: SHUTDOWN
+    serverName: domain1-managed-server4
+  - clusterName: domain1-cluster
+    desiredState: SHUTDOWN
+    serverName: domain1-managed-server5
+  - clusterName: domain1-cluster
+    desiredState: SHUTDOWN
+    serverName: domain1-managed-server6
+  - clusterName: domain1-cluster
+    desiredState: SHUTDOWN
+    serverName: domain1-managed-server7
+  - clusterName: domain1-cluster
+    desiredState: SHUTDOWN
+    serverName: domain1-managed-server8
+  - clusterName: domain1-cluster
+    desiredState: SHUTDOWN
+    serverName: domain1-managed-server9
+  startTime: '2022-03-11T15:47:51.405378Z'
