@@ -1,9 +1,22 @@
 apiVersion: weblogic.oracle/v8
 kind: Domain
 metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: '{"apiVersion":"weblogic.oracle/v8","kind":"Domain","metadata":{"annotations":{},"creationTimestamp":"2022-03-08T11:16:17Z","generation":1,"labels":{"app.kubernetes.io/instance":"updatedomain","weblogic.domainUID":"domain1-uid"},"managedFields":[{"apiVersion":"weblogic.oracle/v8","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:labels":{".":{},"f:weblogic.domainUID":{}}}},"manager":"OpenAPI-Generator","operation":"Update","time":"2022-03-08T11:16:17Z"},{"apiVersion":"weblogic.oracle/v8","fieldsType":"FieldsV1","fieldsV1":{"f:status":{".":{},"f:clusters":{},"f:conditions":{},"f:introspectJobFailureCount":{},"f:replicas":{},"f:servers":{},"f:startTime":{}}},"manager":"Kubernetes
+      Java Client","operation":"Update","time":"2022-03-08T11:20:37Z"}],"name":"domain1","namespace":"domain1-ns","resourceVersion":"10338225","selfLink":"/apis/weblogic.oracle/v8/namespaces/domain1-ns/domains/domain1","uid":"1ee3f04b-3502-4c07-9367-633ab45c6d86"},"spec":{"adminServer":{"serverPod":{"env":[{"name":"USER_MEM_ARGS","value":"-Xms256m
+      -Xmx512m -XX:+UseG1GC -Djava.security.egd=file:/dev/./urandom"},{"name":"JAVA_OPTIONS","value":"-Dweblogic.store.file.LockEnabled=false
+      -Dweblogic.rjvm.allowUnknownHost=true -Dweblogic.security.remoteAnonymousRMIT3Enabled=false
+      -Dweblogic.security.remoteAnonymousRMIIIOPEnabled=false"}]},"serverStartState":"RUNNING"},"clusters":[{"clusterName":"domain1-cluster","replicas":2,"serverPod":{"affinity":{"podAntiAffinity":{"preferredDuringSchedulingIgnoredDuringExecution":[{"podAffinityTerm":{"labelSelector":{"matchExpressions":[{"key":"weblogic.clusterName","operator":"In","values":["domain1-cluster"]}]},"topologyKey":"kubernetes.io/hostname"},"weight":100}]}},"env":[{"name":"USER_MEM_ARGS","value":"-XX:+UseContainerSupport
+      -XX:+UseG1GC -Djava.security.egd=file:/dev/./urandom"},{"name":"JAVA_OPTIONS","value":"-Dweblogic.store.file.LockEnabled=false
+      -Dweblogic.rjvm.allowUnknownHost=true -Dweblogic.security.remoteAnonymousRMIT3Enabled=false
+      -Dweblogic.security.remoteAnonymousRMIIIOPEnabled=false"}]},"serverStartState":"RUNNING"}],"configuration":{"introspectorJobActiveDeadlineSeconds":300,"model":{"configMap":"domain1-configmap","domainType":"WLS","runtimeEncryptionSecret":"domain1-runtime-encryption-secret"}},"dataHome":"/u01/shared/weblogic-domains/domain1/data/store","domainHome":"/u01/data/domains/domain1-uid","domainHomeSourceType":"FromModel","image":"domain1-password-secret","imagePullPolicy":"IfNotPresent","imagePullSecrets":[{"name":"ocirsecrets"}],"includeServerOutInPodLog":true,"logHome":"/u01/shared/weblogic-domains/domain1/logs","logHomeEnabled":true,"restartVersion":"1","serverPod":{"env":[{"name":"RESOURCE_PREFIX","value":"domain1"},{"name":"JAVA_OPTIONS","value":"-Dweblogic.StdoutDebugEnabled=false
+      -Doracle.jdbc.fanEnabled=false "},{"name":"OKE_DOMAIN_NAME","value":"domain1"}],"nodeSelector":{"name":"check-wls-np","usage":"weblogic"},"volumeMounts":[{"mountPath":"/u01/shared","name":"weblogic-domain-storage-volume"}],"volumes":[{"name":"weblogic-domain-storage-volume","persistentVolumeClaim":{"claimName":"domain1-oke-pvc"}}]},"serverStartPolicy":"IF_NEEDED","webLogicCredentialsSecret":{"name":"domain1-weblogic-credentials"}},"status":{"clusters":[{"clusterName":"domain1-cluster","maximumReplicas":9,"minimumReplicas":0,"readyReplicas":2,"replicas":2,"replicasGoal":2}],"conditions":[{"lastTransitionTime":"2022-03-08T11:22:38.728610Z","reason":"ServersReady","status":"True","type":"Available"}],"introspectJobFailureCount":0,"replicas":2,"servers":[{"desiredState":"RUNNING","health":{"activationTime":"2022-03-08T11:20:11.200000Z","overallHealth":"ok","subsystems":[{"subsystemName":"ServerRuntime","symptoms":[]}]},"nodeName":"10.0.4.2","serverName":"domain1-adminserver","state":"RUNNING"},{"clusterName":"domain1-cluster","desiredState":"RUNNING","health":{"activationTime":"2022-03-08T11:22:27.825000Z","overallHealth":"ok","subsystems":[{"subsystemName":"ServerRuntime","symptoms":[]}]},"nodeName":"10.0.4.2","serverName":"domain1-managed-server1","state":"RUNNING"},{"clusterName":"domain1-cluster","desiredState":"RUNNING","health":{"activationTime":"2022-03-08T11:22:29.375000Z","overallHealth":"ok","subsystems":[{"subsystemName":"ServerRuntime","symptoms":[]}]},"nodeName":"10.0.4.2","serverName":"domain1-managed-server2","state":"RUNNING"},{"clusterName":"domain1-cluster","desiredState":"SHUTDOWN","serverName":"domain1-managed-server3"},{"clusterName":"domain1-cluster","desiredState":"SHUTDOWN","serverName":"domain1-managed-server4"},{"clusterName":"domain1-cluster","desiredState":"SHUTDOWN","serverName":"domain1-managed-server5"},{"clusterName":"domain1-cluster","desiredState":"SHUTDOWN","serverName":"domain1-managed-server6"},{"clusterName":"domain1-cluster","desiredState":"SHUTDOWN","serverName":"domain1-managed-server7"},{"clusterName":"domain1-cluster","desiredState":"SHUTDOWN","serverName":"domain1-managed-server8"},{"clusterName":"domain1-cluster","desiredState":"SHUTDOWN","serverName":"domain1-managed-server9"}],"startTime":"2022-03-08T11:16:18.085831Z"}}
+
+      '
   creationTimestamp: '2022-03-08T11:16:17Z'
-  generation: 1
+  generation: 3
   labels:
+    app.kubernetes.io/instance: updatedomain
     weblogic.domainUID: domain1-uid
   managedFields:
   - apiVersion: weblogic.oracle/v8
@@ -19,6 +32,18 @@ metadata:
   - apiVersion: weblogic.oracle/v8
     fieldsType: FieldsV1
     fieldsV1:
+      f:metadata:
+        f:annotations:
+          .: {}
+          f:kubectl.kubernetes.io/last-applied-configuration: {}
+        f:labels:
+          f:app.kubernetes.io/instance: {}
+    manager: argocd-application-controller
+    operation: Update
+    time: '2022-03-11T07:22:44Z'
+  - apiVersion: weblogic.oracle/v8
+    fieldsType: FieldsV1
+    fieldsV1:
       f:status:
         .: {}
         f:clusters: {}
@@ -29,10 +54,10 @@ metadata:
         f:startTime: {}
     manager: Kubernetes Java Client
     operation: Update
-    time: '2022-03-08T11:20:37Z'
+    time: '2022-03-11T07:30:57Z'
   name: domain1
   namespace: domain1-ns
-  resourceVersion: '10338225'
+  resourceVersion: '12491786'
   selfLink: /apis/weblogic.oracle/v8/namespaces/domain1-ns/domains/domain1
   uid: 1ee3f04b-3502-4c07-9367-633ab45c6d86
 spec:
@@ -74,10 +99,12 @@ spec:
       configMap: domain1-configmap
       domainType: WLS
       runtimeEncryptionSecret: domain1-runtime-encryption-secret
+    secrets:
+    - domain1-password-secret
   dataHome: /u01/shared/weblogic-domains/domain1/data/store
   domainHome: /u01/data/domains/domain1-uid
   domainHomeSourceType: FromModel
-  image: domain1-password-secret
+  image: phx.ocir.io/ax8cfrmecktw/check/wls-base-image/domain1/122140:12.2.1.4.220118-220207-22-03-11_07-34-56
   imagePullPolicy: IfNotPresent
   imagePullSecrets:
   - name: ocirsecrets
@@ -115,7 +142,7 @@ status:
     replicas: 2
     replicasGoal: 2
   conditions:
-  - lastTransitionTime: '2022-03-08T11:22:38.728610Z'
+  - lastTransitionTime: '2022-03-11T07:30:57.377520Z'
     reason: ServersReady
     status: 'True'
     type: Available
