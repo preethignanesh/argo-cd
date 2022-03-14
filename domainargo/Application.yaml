@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: doaminargo
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/preethignanesh/argo-cd.git
+    targetRevision: HEAD
+    path: domainargo
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: domainargo-ns
+  syncPolicy:
+    automated:
+      prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
+      selfHeal: true # Specifies if partial app sync should be executed when resources are changed only in target Kubernetes cluster no git change detected ( false by default ).
