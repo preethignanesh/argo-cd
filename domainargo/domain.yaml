@@ -1,0 +1,172 @@
+apiVersion: weblogic.oracle/v8
+kind: Domain
+metadata:
+  creationTimestamp: '2022-03-14T09:45:09Z'
+  generation: 1
+  labels:
+    weblogic.domainUID: domainargo-uid
+  managedFields:
+  - apiVersion: weblogic.oracle/v8
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:labels:
+          .: {}
+          f:weblogic.domainUID: {}
+    manager: OpenAPI-Generator
+    operation: Update
+    time: '2022-03-14T09:45:09Z'
+  - apiVersion: weblogic.oracle/v8
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:status:
+        .: {}
+        f:clusters: {}
+        f:conditions: {}
+        f:introspectJobFailureCount: {}
+        f:replicas: {}
+        f:servers: {}
+        f:startTime: {}
+    manager: Kubernetes Java Client
+    operation: Update
+    time: '2022-03-14T09:52:01Z'
+  name: domainargo
+  namespace: domainargo-ns
+  resourceVersion: '15637947'
+  selfLink: /apis/weblogic.oracle/v8/namespaces/domainargo-ns/domains/domainargo
+  uid: 9a24b208-4672-4e5a-b2ca-9abe738dafb7
+spec:
+  adminServer:
+    serverPod:
+      env:
+      - name: USER_MEM_ARGS
+        value: -Xms256m -Xmx512m -XX:+UseG1GC -Djava.security.egd=file:/dev/./urandom
+      - name: JAVA_OPTIONS
+        value: -Dweblogic.store.file.LockEnabled=false -Dweblogic.rjvm.allowUnknownHost=true
+          -Dweblogic.security.remoteAnonymousRMIT3Enabled=false -Dweblogic.security.remoteAnonymousRMIIIOPEnabled=false
+    serverStartState: RUNNING
+  clusters:
+  - clusterName: domainargo-cluster
+    replicas: 1
+    serverPod:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: weblogic.clusterName
+                  operator: In
+                  values:
+                  - domainargo-cluster
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+      env:
+      - name: USER_MEM_ARGS
+        value: -XX:+UseContainerSupport -XX:+UseG1GC -Djava.security.egd=file:/dev/./urandom
+      - name: JAVA_OPTIONS
+        value: -Dweblogic.store.file.LockEnabled=false -Dweblogic.rjvm.allowUnknownHost=true
+          -Dweblogic.security.remoteAnonymousRMIT3Enabled=false -Dweblogic.security.remoteAnonymousRMIIIOPEnabled=false
+    serverStartState: RUNNING
+  configuration:
+    introspectorJobActiveDeadlineSeconds: 300
+    model:
+      configMap: domainargo-configmap
+      domainType: WLS
+      runtimeEncryptionSecret: domainargo-runtime-encryption-secret
+    secrets:
+    - domainargo-password-secret
+  dataHome: /u01/shared/weblogic-domains/domainargo/data/store
+  domainHome: /u01/data/domains/domainargo-uid
+  domainHomeSourceType: FromModel
+  image: iad.ocir.io/idivyfxzwa6h/wlschk/wls-base-image/domainargo/122140:12.2.1.4.220118-220207-22-03-14_09-59-02
+  imagePullPolicy: IfNotPresent
+  imagePullSecrets:
+  - name: ocirsecrets
+  includeServerOutInPodLog: true
+  logHome: /u01/shared/weblogic-domains/domainargo/logs
+  logHomeEnabled: true
+  restartVersion: '1'
+  serverPod:
+    env:
+    - name: RESOURCE_PREFIX
+      value: domainargo
+    - name: JAVA_OPTIONS
+      value: '-Dweblogic.StdoutDebugEnabled=false -Doracle.jdbc.fanEnabled=false '
+    - name: OKE_DOMAIN_NAME
+      value: domainargo
+    nodeSelector:
+      name: wlschk-wls-np
+      usage: weblogic
+    volumeMounts:
+    - mountPath: /u01/shared
+      name: weblogic-domain-storage-volume
+    volumes:
+    - name: weblogic-domain-storage-volume
+      persistentVolumeClaim:
+        claimName: domainargo-oke-pvc
+  serverStartPolicy: IF_NEEDED
+  webLogicCredentialsSecret:
+    name: domainargo-weblogic-credentials
+status:
+  clusters:
+  - clusterName: domainargo-cluster
+    maximumReplicas: 9
+    minimumReplicas: 0
+    readyReplicas: 1
+    replicas: 1
+    replicasGoal: 1
+  conditions:
+  - lastTransitionTime: '2022-03-14T09:53:34.464077Z'
+    reason: ServersReady
+    status: 'True'
+    type: Available
+  introspectJobFailureCount: 0
+  replicas: 1
+  servers:
+  - desiredState: RUNNING
+    health:
+      activationTime: '2022-03-14T09:51:30.464000Z'
+      overallHealth: ok
+      subsystems:
+      - subsystemName: ServerRuntime
+        symptoms: []
+    nodeName: 10.0.4.7
+    serverName: domainargo-adminserver
+    state: RUNNING
+  - clusterName: domainargo-cluster
+    desiredState: RUNNING
+    health:
+      activationTime: '2022-03-14T09:53:24.277000Z'
+      overallHealth: ok
+      subsystems:
+      - subsystemName: ServerRuntime
+        symptoms: []
+    nodeName: 10.0.4.7
+    serverName: domainargo-managed-server1
+    state: RUNNING
+  - clusterName: domainargo-cluster
+    desiredState: SHUTDOWN
+    serverName: domainargo-managed-server2
+  - clusterName: domainargo-cluster
+    desiredState: SHUTDOWN
+    serverName: domainargo-managed-server3
+  - clusterName: domainargo-cluster
+    desiredState: SHUTDOWN
+    serverName: domainargo-managed-server4
+  - clusterName: domainargo-cluster
+    desiredState: SHUTDOWN
+    serverName: domainargo-managed-server5
+  - clusterName: domainargo-cluster
+    desiredState: SHUTDOWN
+    serverName: domainargo-managed-server6
+  - clusterName: domainargo-cluster
+    desiredState: SHUTDOWN
+    serverName: domainargo-managed-server7
+  - clusterName: domainargo-cluster
+    desiredState: SHUTDOWN
+    serverName: domainargo-managed-server8
+  - clusterName: domainargo-cluster
+    desiredState: SHUTDOWN
+    serverName: domainargo-managed-server9
+  startTime: '2022-03-14T09:45:09.357053Z'
