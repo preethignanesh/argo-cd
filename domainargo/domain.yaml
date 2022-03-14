@@ -104,7 +104,7 @@ spec:
   dataHome: /u01/shared/weblogic-domains/domainargo/data/store
   domainHome: /u01/data/domains/domainargo-uid
   domainHomeSourceType: FromModel
-  image: domainargo-password-secret
+  image: iad.ocir.io/idivyfxzwa6h/wlschk/wls-base-image/domainargo/122140:12.2.1.4.220118-220207-22-03-14_10-40-52
   imagePullPolicy: IfNotPresent
   imagePullSecrets:
   - name: ocirsecrets
