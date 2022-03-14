@@ -14,7 +14,7 @@ metadata:
 
       '
   creationTimestamp: '2022-03-14T09:45:09Z'
-  generation: 3
+  generation: 4
   labels:
     app.kubernetes.io/instance: doaminargo
     weblogic.domainUID: domainargo-uid
