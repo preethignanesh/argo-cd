@@ -1,0 +1,172 @@
+apiVersion: weblogic.oracle/v8
+kind: Domain
+metadata:
+  creationTimestamp: '2022-03-14T07:44:34Z'
+  generation: 1
+  labels:
+    weblogic.domainUID: domain2-uid
+  managedFields:
+  - apiVersion: weblogic.oracle/v8
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:labels:
+          .: {}
+          f:weblogic.domainUID: {}
+    manager: OpenAPI-Generator
+    operation: Update
+    time: '2022-03-14T07:44:34Z'
+  - apiVersion: weblogic.oracle/v8
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:status:
+        .: {}
+        f:clusters: {}
+        f:conditions: {}
+        f:introspectJobFailureCount: {}
+        f:replicas: {}
+        f:servers: {}
+        f:startTime: {}
+    manager: Kubernetes Java Client
+    operation: Update
+    time: '2022-03-14T07:50:58Z'
+  name: domain2
+  namespace: domain2-ns
+  resourceVersion: '15560317'
+  selfLink: /apis/weblogic.oracle/v8/namespaces/domain2-ns/domains/domain2
+  uid: c6e8697a-5235-4626-a80f-1b685fcbf148
+spec:
+  adminServer:
+    serverPod:
+      env:
+      - name: USER_MEM_ARGS
+        value: -Xms256m -Xmx512m -XX:+UseG1GC -Djava.security.egd=file:/dev/./urandom
+      - name: JAVA_OPTIONS
+        value: -Dweblogic.store.file.LockEnabled=false -Dweblogic.rjvm.allowUnknownHost=true
+          -Dweblogic.security.remoteAnonymousRMIT3Enabled=false -Dweblogic.security.remoteAnonymousRMIIIOPEnabled=false
+    serverStartState: RUNNING
+  clusters:
+  - clusterName: domain2-cluster
+    replicas: 1
+    serverPod:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: weblogic.clusterName
+                  operator: In
+                  values:
+                  - domain2-cluster
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+      env:
+      - name: USER_MEM_ARGS
+        value: -XX:+UseContainerSupport -XX:+UseG1GC -Djava.security.egd=file:/dev/./urandom
+      - name: JAVA_OPTIONS
+        value: -Dweblogic.store.file.LockEnabled=false -Dweblogic.rjvm.allowUnknownHost=true
+          -Dweblogic.security.remoteAnonymousRMIT3Enabled=false -Dweblogic.security.remoteAnonymousRMIIIOPEnabled=false
+    serverStartState: RUNNING
+  configuration:
+    introspectorJobActiveDeadlineSeconds: 300
+    model:
+      configMap: domain2-configmap
+      domainType: WLS
+      runtimeEncryptionSecret: domain2-runtime-encryption-secret
+    secrets:
+    - domain2-password-secret
+  dataHome: /u01/shared/weblogic-domains/domain2/data/store
+  domainHome: /u01/data/domains/domain2-uid
+  domainHomeSourceType: FromModel
+  image: iad.ocir.io/idivyfxzwa6h/wlschk/wls-base-image/domain2/122140:12.2.1.4.220118-220207-22-03-14_08-25-12
+  imagePullPolicy: IfNotPresent
+  imagePullSecrets:
+  - name: ocirsecrets
+  includeServerOutInPodLog: true
+  logHome: /u01/shared/weblogic-domains/domain2/logs
+  logHomeEnabled: true
+  restartVersion: '1'
+  serverPod:
+    env:
+    - name: RESOURCE_PREFIX
+      value: domain2
+    - name: JAVA_OPTIONS
+      value: '-Dweblogic.StdoutDebugEnabled=false -Doracle.jdbc.fanEnabled=false '
+    - name: OKE_DOMAIN_NAME
+      value: domain2
+    nodeSelector:
+      name: wlschk-wls-np
+      usage: weblogic
+    volumeMounts:
+    - mountPath: /u01/shared
+      name: weblogic-domain-storage-volume
+    volumes:
+    - name: weblogic-domain-storage-volume
+      persistentVolumeClaim:
+        claimName: domain2-oke-pvc
+  serverStartPolicy: IF_NEEDED
+  webLogicCredentialsSecret:
+    name: domain2-weblogic-credentials
+status:
+  clusters:
+  - clusterName: domain2-cluster
+    maximumReplicas: 9
+    minimumReplicas: 0
+    readyReplicas: 1
+    replicas: 1
+    replicasGoal: 1
+  conditions:
+  - lastTransitionTime: '2022-03-14T07:52:26.679981Z'
+    reason: ServersReady
+    status: 'True'
+    type: Available
+  introspectJobFailureCount: 0
+  replicas: 1
+  servers:
+  - desiredState: RUNNING
+    health:
+      activationTime: '2022-03-14T07:50:36.554000Z'
+      overallHealth: ok
+      subsystems:
+      - subsystemName: ServerRuntime
+        symptoms: []
+    nodeName: 10.0.4.7
+    serverName: domain2-adminserver
+    state: RUNNING
+  - clusterName: domain2-cluster
+    desiredState: RUNNING
+    health:
+      activationTime: '2022-03-14T07:52:09.220000Z'
+      overallHealth: ok
+      subsystems:
+      - subsystemName: ServerRuntime
+        symptoms: []
+    nodeName: 10.0.4.7
+    serverName: domain2-managed-server1
+    state: RUNNING
+  - clusterName: domain2-cluster
+    desiredState: SHUTDOWN
+    serverName: domain2-managed-server2
+  - clusterName: domain2-cluster
+    desiredState: SHUTDOWN
+    serverName: domain2-managed-server3
+  - clusterName: domain2-cluster
+    desiredState: SHUTDOWN
+    serverName: domain2-managed-server4
+  - clusterName: domain2-cluster
+    desiredState: SHUTDOWN
+    serverName: domain2-managed-server5
+  - clusterName: domain2-cluster
+    desiredState: SHUTDOWN
+    serverName: domain2-managed-server6
+  - clusterName: domain2-cluster
+    desiredState: SHUTDOWN
+    serverName: domain2-managed-server7
+  - clusterName: domain2-cluster
+    desiredState: SHUTDOWN
+    serverName: domain2-managed-server8
+  - clusterName: domain2-cluster
+    desiredState: SHUTDOWN
+    serverName: domain2-managed-server9
+  startTime: '2022-03-14T07:44:34.442066Z'
