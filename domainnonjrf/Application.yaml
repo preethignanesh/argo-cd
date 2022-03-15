@@ -4,7 +4,7 @@ metadata:
   name: domainnonjrf
   namespace: argocd
   annotations:
-    notifications.argoproj.io/subscribe.on-sync-succeeded.outlook: preethi.gnanesh@oracle.com
+    notifications.argoproj.io/subscribe.on-sync-succeeded.office365: preethi.gnanesh@oracle.com
 spec:
   project: default
   source:
