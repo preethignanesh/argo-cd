@@ -15,6 +15,11 @@ spec:
   ignoreDifferences:
   - group: "weblogic.oracle"
     kind: "Domain"
+    jsonPointers:
+    - /metadata/generation
+    - /metadata/managedFields
+    - /metadata/resourceVersion
+    - /status
   syncPolicy:
     automated:
       prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
