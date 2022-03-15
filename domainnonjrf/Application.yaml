@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: domainnonjrf
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/preethignanesh/argo-cd.git
+    targetRevision: HEAD
+    path: domainnonjrf
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: domainnonjrf-ns
+  ignoreDifferences:
+  - group: "weblogic.oracle"
+    kind: "Domain"
+  syncPolicy:
+    automated:
+      prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
+    syncOptions:
+    - RespectIgnoreDifferences=true
