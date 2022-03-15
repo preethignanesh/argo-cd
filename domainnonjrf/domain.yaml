@@ -1,6 +1,4 @@
-apiVersion: v1
-items:
-- apiVersion: weblogic.oracle/v8
+  apiVersion: weblogic.oracle/v8
   kind: Domain
   metadata:
     annotations:
