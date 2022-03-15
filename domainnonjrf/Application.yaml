@@ -19,6 +19,7 @@ spec:
     - /metadata/generation
     - /metadata/managedFields
     - /metadata/resourceVersion
+    - /metadata/annotations
     - /status
   syncPolicy:
     automated:
