@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: domainvz
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/preethignanesh/argo-cd.git
+    targetRevision: HEAD
+    path: domainvz
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: domainvz-ns
+  ignoreDifferences:
+  - group: "weblogic.oracle"
+    kind: "Domain"
+    jsonPointers:
+    - /metadata/generation
+    - /metadata/managedFields
+    - /metadata/resourceVersion
+    - /metadata/annotations
+    - /status
+  syncPolicy:
+    automated:
+      prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
+    syncOptions:
+    - RespectIgnoreDifferences=true
