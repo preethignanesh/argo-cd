@@ -22,9 +22,7 @@ spec:
     - /metadata/annotations
     - /status
   - group: "core.oam.dev"
-    kind: "ApplicationConfiguration"
-    jsonPointers:
-    - /spec/components
+    kind: "MetricsTrait"
   syncPolicy:
     automated:
       prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
