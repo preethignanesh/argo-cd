@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: domainvzdemo
+  name: domainvzsync
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/preethignanesh/argo-cd.git
     targetRevision: HEAD
-    path: domainvzdemo
+    path: domainvzsync
   destination:
     server: https://kubernetes.default.svc
-    namespace: domainvzdemo-ns
+    namespace: domainvzsync-ns
   ignoreDifferences:
   - group: "weblogic.oracle"
     kind: "Domain"
