@@ -21,7 +21,7 @@ spec:
     - /metadata/resourceVersion
     - /metadata/annotations
     - /status
-  - group: "core.oam.dev/v1alpha2"
+  - group: "core.oam.dev"
     kind: "ApplicationConfiguration"
     jsonPointers:
     - /spec/components
