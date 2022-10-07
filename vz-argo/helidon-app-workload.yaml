@@ -2,7 +2,7 @@ apiVersion: core.oam.dev/v1alpha2
 kind: ApplicationConfiguration
 metadata:
   name: helidontest-appconf
-  namespace: hello-helidon
+  namespace: hello-greet
   annotations:
     version: v1.0.0
     description: "Non-JRF WebLogic Domain"
