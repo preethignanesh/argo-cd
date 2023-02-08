@@ -1,0 +1,41 @@
+apiVersion: core.oam.dev/v1alpha2
+kind: Component
+metadata:
+  name: bobby-coh
+spec:
+  workload:
+    apiVersion: oam.verrazzano.io/v1alpha1
+    kind: VerrazzanoCoherenceWorkload
+    spec:
+      template:
+        metadata:
+          name: bobbys-coherence
+        spec:
+          labels:
+            app: bobbys-coh
+            version: v1
+          replicas: 1
+          image: container-registry.oracle.com/verrazzano/example-bobbys-coherence:1.0.0-1-20210728181814-eb1e622
+          imagePullPolicy: IfNotPresent
+          imagePullSecrets:
+            - name: bobs-books-repo-credentials
+          env:
+            - name: TRACING_HOST
+              value: "jaeger-collector"
+            - name: JAEGER_SAMPLER_TYPE
+              value: "const"
+            - name: JAEGER_SAMPLER_PARAM
+              value: "1"
+          jvm:
+            memory:
+              heapSize: 1g
+            args:
+              - "-Dcoherence.k8s.operator.health.wait.dcs=false"
+          coherence:
+            metrics:
+              enabled: true
+          ports:
+            - name: tcp-extend
+              port: 9000
+              service:
+                name: bobbys-coherence-extend
