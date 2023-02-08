@@ -1,0 +1,37 @@
+apiVersion: core.oam.dev/v1alpha2
+kind: Component
+metadata:
+  name: bobs-mysql-configmap
+spec:
+  workload:
+    apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: mysql-initdb-config
+    data:
+      initdb.sql: |
+        create table `orders` (
+            `id` int not null auto_increment,
+            `order_date` date,
+            `name` char(40),
+            `street` char(40),
+            `city` char(40),
+            `state` char(2),
+            primary key(`id`)
+        );
+        create table `order_books` (
+            `order_id` int,
+            `book_id` int,
+            `title` char(255),
+            foreign key (`order_id`)
+            references `orders`(`id`)
+            on delete cascade
+        );
+        insert into `orders` (`id`, `order_date`, `name`, `street`, `city`, `state`)
+        values (1, curdate(), "Bob Down", "12 Main Rd", "Mt Everest", "NJ");
+
+        insert into `order_books` (`order_id`, `book_id`, `title`)
+        values (1, 2, "Harry Potter");
+
+        insert into `order_books` (`order_id`, `book_id`, `title`)
+        values (1, 4, "Twilight");
