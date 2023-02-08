@@ -1,0 +1,38 @@
+apiVersion: core.oam.dev/v1alpha2
+kind: Component
+metadata:
+  name: bobby-helidon
+spec:
+  workload:
+    apiVersion: oam.verrazzano.io/v1alpha1
+    kind: VerrazzanoHelidonWorkload
+    metadata:
+      name: bobbys-helidon-stock-application
+      labels:
+        app: bobbys-helidon-stock-application
+        version: v1
+    spec:
+      deploymentTemplate:
+        metadata:
+          name: bobbys-helidon-stock-application
+        podSpec:
+          containers:
+            - name: bobbys-helidon-stock-application
+              image: container-registry.oracle.com/verrazzano/example-bobbys-helidon-stock-application:1.0.0-1-20210728181814-eb1e622
+              imagePullPolicy: IfNotPresent
+              ports:
+                - containerPort: 8080
+                  name: http
+              env:
+                - name: BACKEND_PORT
+                  value: "8001"
+                - name: BACKEND_HOSTNAME
+                  value: bobs-bookstore-cluster-cluster-1
+                - name: COH_CLUSTER
+                  value: bobbys-coherence
+                - name: COH_CACHE_CONFIG
+                  value: coherence-cache-config.xml
+                - name: COH_POF_CONFIG
+                  value: pof-config.xml
+          imagePullSecrets:
+            - name: bobs-books-repo-credentials
