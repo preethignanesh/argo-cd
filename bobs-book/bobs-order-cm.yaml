@@ -1,0 +1,40 @@
+apiVersion: core.oam.dev/v1alpha2
+kind: Component
+metadata:
+  name: bobs-orders-configmap
+spec:
+  workload:
+    apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      labels:
+        weblogic.domainUID: bobs-bookstore
+      name: bobs-bookstore-wdt-config-map
+    data:
+      datasource.yaml: |
+        resources:
+          JDBCSystemResource:
+            books:
+              Target: 'cluster-1'
+              JdbcResource:
+                JDBCDataSourceParams:
+                  JNDIName: [
+                    jdbc/books
+                  ]
+                JDBCDriverParams:
+                  DriverName: com.mysql.cj.jdbc.Driver
+                  URL: '@@SECRET:mysql-credentials:url@@'
+                  PasswordEncrypted: '@@SECRET:mysql-credentials:password@@'
+                  Properties:
+                    user:
+                      Value: '@@SECRET:mysql-credentials:username@@'
+                JDBCConnectionPoolParams:
+                  ConnectionCreationRetryFrequencySeconds: 5
+                  ConnectionReserveTimeoutSeconds: 10
+                  InitialCapacity: 0
+                  InactiveConnectionTimeoutSeconds: 60
+                  MaxCapacity: 5
+                  MinCapacity: 0
+                  TestConnectionsOnReserve: true
+                  TestFrequencySeconds: 10
+                  TestTableName: SQL SELECT 1
