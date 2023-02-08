@@ -1,0 +1,16 @@
+apiVersion: core.oam.dev/v1alpha2
+kind: Component
+metadata:
+  name: bobs-mysql-service
+spec:
+  workload:
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: mysql
+    spec:
+      ports:
+        - port: 3306
+      selector:
+        app: bobs-mysql
+      clusterIP: None
