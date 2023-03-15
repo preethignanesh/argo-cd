@@ -19,7 +19,7 @@ spec:
         podSpec:
           containers:
             - name: hello-helidon-container
-              image: "phx.ocir.io/ax8cfrmecktw/helidon-test4/helidon-greet-app:1.1.0"
+              image: "phx.ocir.io/ax8cfrmecktw/helidon-test/helidon-greet-app:1.1.0"
               ports:
                 - containerPort: 8080
                   name: http
